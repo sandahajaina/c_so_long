@@ -12,9 +12,13 @@
 
 #include "so_long.h"
 
-int main(int argc, char *argv[])
+int	main(void)
 {
-    (void) argc;
-    (void) argv;
-    return (0);
+	void	*mlx;
+	void	*mlx_win;
+
+    (void) mlx_win;
+	mlx = mlx_init();
+	mlx_win = mlx_new_window(mlx, 200, 100, "Hello world!");
+	mlx_loop(mlx);
 }

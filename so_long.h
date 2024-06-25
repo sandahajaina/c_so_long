@@ -16,5 +16,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
+#include "mlx_linux/mlx.h"
+#include "mlx_linux/mlx_int.h"
 
 #endif
