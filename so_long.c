@@ -12,13 +12,18 @@
 
 #include "so_long.h"
 
-int	main(void)
+int	main(int argc, char *argv[])
 {
-	void	*mlx;
-	void	*mlx_win;
+	// void *mlx;
+	// void *mlx_win;
+	(void) argc;
 
-    (void) mlx_win;
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 200, 100, "Hello world!");
-	mlx_loop(mlx);
+	char **map = read_map(argv[1]);
+	printf("%s\n", *map);
+
+	// (void)mlx_win;
+	// mlx = mlx_init();
+	// mlx_win = mlx_new_window(mlx, 200, 100, "Hello world!");
+	// mlx_loop(mlx);
+	return (0);
 }
