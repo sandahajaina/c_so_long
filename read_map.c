@@ -12,23 +12,13 @@
 
 #include "so_long.h"
 
-char    **read_map(char *file)
+long    count_map_line(char *map)
 {
-    int fd;
+    return (1);
+} 
 
-    printf("%s\n", file);
-
-    fd = open(file, O_RDONLY);
-    char **res;
-    res = malloc(sizeof(char **));
-    char *tmp = malloc(5);
-    int i = 0;
-    while(file[i])
-    {
-        tmp[i] = file[i];
-        i++;
-    }
-    (void) fd;
-    res[0] = tmp;
-    return (res);
+char    **read_map(int fd)
+{
+    char    **map;
+    char    *line;
 }

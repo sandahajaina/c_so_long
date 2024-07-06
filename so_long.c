@@ -16,11 +16,16 @@ int	main(int argc, char *argv[])
 {
 	// void *mlx;
 	// void *mlx_win;
+	char **map;
 	(void) argc;
+	int fd;
 
-	char **map = read_map(argv[1]);
+	map = NULL;
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		perror("error");
+	map = read_map(fd);
 	printf("%s\n", *map);
-
 	// (void)mlx_win;
 	// mlx = mlx_init();
 	// mlx_win = mlx_new_window(mlx, 200, 100, "Hello world!");

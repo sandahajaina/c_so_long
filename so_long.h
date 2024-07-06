@@ -14,14 +14,14 @@
 # define SO_LONG_H
 
 #include <stdio.h>
-
 #include <unistd.h>
 #include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
 #include "mlx_linux/mlx.h"
 #include "mlx_linux/mlx_int.h"
+#include "get_next_line/get_next_line.h"
 
-char    **read_map(char *file);
+char    **read_map(int fd);
 
 #endif
