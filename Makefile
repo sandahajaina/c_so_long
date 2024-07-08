@@ -1,5 +1,5 @@
 NAME = so_long
-CC = gcc
+CC = clang
 CFLAGS = -Wall -Werror -Wextra
 SRCS = so_long.c read_map.c
 OBJS = $(SRCS:.c=.o)
@@ -15,7 +15,7 @@ get_next_line/gnl.a :
 	$(MAKE) -C get_next_line
 
 %.o : %.c
-	$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+	$(CC) $(CFLAGS) -g -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 clean :
 	rm -f $(OBJS)

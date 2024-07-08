@@ -22,6 +22,6 @@
 #include "mlx_linux/mlx_int.h"
 #include "get_next_line/get_next_line.h"
 
-char    **read_map(int fd);
+char    **read_map(char *map);
 
 #endif
