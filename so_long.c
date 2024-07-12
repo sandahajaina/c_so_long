@@ -20,12 +20,33 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;
+    char    *dst;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+    *(unsigned int*)dst = color;
+}
+
+void put_image_to_image(t_data *big_img, t_data *small_img, int x_offset, int y_offset)
+{
+    int x = 0;
+    int y = 0;
+    int color;
+    int small_img_width = 32;
+    int small_img_height = 32;
+
+    while (y < small_img_height)
+    {
+        x = 0;
+        while (x < small_img_width)
+        {
+            color = *(unsigned int*)(small_img->addr + (y * small_img->line_length + x * (small_img->bits_per_pixel / 8)));
+            my_mlx_pixel_put(big_img, x + x_offset, y + y_offset, color);
+            x++;
+        }
+        y++;
+    }
 }
 
 int	main(int argc, char *argv[])
@@ -39,23 +60,41 @@ int	main(int argc, char *argv[])
 
 /***********************************************************/
 		
-		void	*mlx;
-		void	*mlx_win;
-		t_data	img;
+		void    *mlx;
+		void    *win;
+		t_data  small_img;
+		t_data  big_img;
+		int     width = 800;
+		int     height = 600;
+		int     img_width;
+		int     img_height;
 
 		mlx = mlx_init();
-		mlx_win = mlx_new_window(mlx, 900, 600, "Hello world!");
-		img.img = mlx_new_image(mlx, 900, 600);
-		img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-									&img.endian);
-		int x = 5;
-		int y = 5;
-		while (x < 50)
+
+		win = mlx_new_window(mlx, width, height, "Display Image");
+
+		small_img.img = mlx_xpm_file_to_image(mlx, "assets/knight_idle_anim_f0_32x32.xpm", &img_width, &img_height);
+		if (!small_img.img)
+
+		small_img.addr = mlx_get_data_addr(small_img.img, &small_img.bits_per_pixel, &small_img.line_length, &small_img.endian);
+
+		big_img.img = mlx_new_image(mlx, width, height);
+		big_img.addr = mlx_get_data_addr(big_img.img, &big_img.bits_per_pixel, &big_img.line_length, &big_img.endian);
+
+		int y = 0;
+		while (y < height)
 		{
-			my_mlx_pixel_put(&img, x++, y, 0x00FF0000);
-			my_mlx_pixel_put(&img, x, 50, 0x00FF0000);
+			int x = 0;
+			while (x < width)
+			{
+				put_image_to_image(&big_img, &small_img, x, y);
+				x += 32;
+			}
+			y += 32;
 		}
-		mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
+
+		mlx_put_image_to_window(mlx, win, big_img.img, 0, 0);
+
 		mlx_loop(mlx);
 
 /**********************************************************/
