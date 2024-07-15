@@ -1,7 +1,7 @@
 NAME = so_long
 CC = clang
 CFLAGS = -Wall -Werror -Wextra
-SRCS = so_long.c read_map.c
+SRCS = so_long.c map.c
 OBJS = $(SRCS:.c=.o)
 LIB_PATH_MLX = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 LIB_PATH_GNL = -Lget_next_line -lgnl
