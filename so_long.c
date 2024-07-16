@@ -12,33 +12,60 @@
 
 #include "so_long.h"
 
-void my_mlx_pixel_put(t_data *data, int x, int y, int color)
+typedef struct	s_xpm
 {
-    char    *dst;
+	void	*bg;
+	void	*coin;
+	void	*door;
+	void	*player;
+	void	*wall;
+}				t_xpm;
 
-    dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-    *(unsigned int*)dst = color;
+typedef struct	s_game
+{
+	void	*mlx;
+	void	*win;
+	char	**map;
+	t_xpm	xpm;
+}				t_game;
+
+void	load_xpm(void *mlx, t_xpm *xpm)
+{
+	int		width;
+	int		height;
+
+	xpm->bg = mlx_xpm_file_to_image(mlx, "assets/bg.xpm", &width, &height);
+	xpm->coin = mlx_xpm_file_to_image(mlx, "assets/coin.xpm", &width, &height);
+	xpm->door = mlx_xpm_file_to_image(mlx, "assets/door.xpm", &width, &height);
+	xpm->player = mlx_xpm_file_to_image(mlx, "assets/ninja.xpm", &width, &height);
+	xpm->wall = mlx_xpm_file_to_image(mlx, "assets/wall.xpm", &width, &height);
 }
 
-void put_image_to_image(t_data *big_img, t_data *small_img, int x_offset, int y_offset)
+void	draw_map(char **map)
 {
-    int x = 0;
-    int y = 0;
-    int color;
-    int small_img_width = 32;
-    int small_img_height = 32;
+	void    *mlx;
+		void	*win;
+		t_xpm	xpm;
 
-    while (y < small_img_height)
-    {
-        x = 0;
-        while (x < small_img_width)
-        {
-            color = *(unsigned int*)(small_img->addr + (y * small_img->line_length + x * (small_img->bits_per_pixel / 8)));
-            my_mlx_pixel_put(big_img, x + x_offset, y + y_offset, color);
-            x++;
-        }
-        y++;
-    }
+		mlx = mlx_init();
+		win = mlx_new_window(mlx, 900, 600, "so_long");
+		load_xpm(mlx, &xpm);
+	//printf ("%c\n", map[0][0]);
+	int x = 0;
+	int y = 0;
+	while (y < 6)
+	{
+		x = 0;
+		while (x < 34)
+		{
+			if (map[x][y] == '1')
+			{
+				mlx_put_image_to_window(mlx, win, xpm.door, (x*32), (y*32));
+			}
+			x++;
+		}
+		y++;
+	}
 }
 
 int	main(int argc, char *argv[])
@@ -50,24 +77,19 @@ int	main(int argc, char *argv[])
 		map = NULL;
 		map = read_map(argv[1]);
 
+		printf("%c\n", map[0][0]);
+
 /***********************************************************/
 		
 		void    *mlx;
 		void	*win;
-		void	*img;
-		int		width;
-		int		height;
-		t_data	big_img;
+		t_xpm	xpm;
 
 		mlx = mlx_init();
 		win = mlx_new_window(mlx, 900, 600, "so_long");
-		img = mlx_xpm_file_to_image(mlx, "assets/ninja.xpm", &width, &height);
+		load_xpm(mlx, &xpm);
 
-		big_img.img = mlx_new_image(mlx, 900, 600);
-		big_img.addr = mlx_get_data_addr(big_img.img, &big_img.bits_per_pixel,
-			&big_img.line_length, &big_img.endian);
-
-		mlx_put_image_to_window(mlx, win, img, 5, 5);
+		draw_map(map);
 
 		mlx_loop(mlx);
 /**********************************************************/

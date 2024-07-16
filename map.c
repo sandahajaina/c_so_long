@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-static int    count_map_line(char *map)
+int    count_map_line(char *map)
 {
     int     line;
     int     fd;
