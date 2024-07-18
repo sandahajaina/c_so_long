@@ -95,9 +95,11 @@ t_game	init_game(char *file)
 	game.mlx = mlx_init();
 	game.map.map = read_map(file);
 	x = 0;
-	while (game.map.map[0][x] != '\n')
+	while (game.map.map[0][x])
 		x++;
-	y = count_map_line(file);
+	y = 0;
+	while (game.map.map[y])
+		y++;
 	game.width = x;
 	game.height = y;
 	game.win = mlx_new_window(game.mlx, (game.width * 32), (game.height * 32),
@@ -140,6 +142,41 @@ void	render_map(t_game game)
 	}
 }
 
+void	destroy_xpm(t_game *game)
+{
+	mlx_destroy_image(game->mlx, game->xpm.bg);
+	mlx_destroy_image(game->mlx, game->xpm.wall);
+	mlx_destroy_image(game->mlx, game->xpm.player);
+	mlx_destroy_image(game->mlx, game->xpm.coin);
+	mlx_destroy_image(game->mlx, game->xpm.door);
+}
+
+void	free_map(char **map)
+{
+	int i = 0;
+	while (map[i])
+		free (map[i++]);
+	free(map[i]);
+	free (map);
+}
+
+void	free_game(t_game *game)
+{
+	destroy_xpm(game);
+	free_map(game->map.map);
+	mlx_destroy_window(game->mlx, game->win);
+	mlx_destroy_display(game->mlx);
+	free(game->mlx);
+}
+
+int	close_window(t_game *game)
+{
+	free_game(game);
+	(void) game;
+	exit (0);
+	return (0);
+}
+
 int	main(int argc, char *argv[])
 {
 	if (argc == 2)
@@ -149,10 +186,10 @@ int	main(int argc, char *argv[])
 
 		game = init_game(argv[1]);
 		render_map(game);
-		printf ("start = x: %d | y: %d\n", game.map.start.x, game.map.start.y);
-		printf ("exit = x: %d | y: %d\n", game.map.exit.x, game.map.exit.y);
+		mlx_hook(game.win, 17, 0, close_window, &game);
 		mlx_loop(game.mlx);
 		/**********************************************************/
 	}
+
 	return (0);
 }

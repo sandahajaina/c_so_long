@@ -13,21 +13,30 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
+
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
-#include <mlx.h>
+//#include <mlx.h>
 #include <math.h>
 #include <fcntl.h>
 #include "mlx_linux/mlx.h"
 #include "mlx_linux/mlx_int.h"
-#include "get_next_line/get_next_line.h"
 
 
 
 //map.c
 int		count_map_line(char *map);
 char    **read_map(char *map);
+void	free_map(char **map);
+char	*get_map_content(char *file);
 
+//ft_split
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s, char c);
 
 #endif
