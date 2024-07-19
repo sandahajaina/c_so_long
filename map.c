@@ -60,5 +60,6 @@ char	**read_map(char *file)
 
 	char *map_content = get_map_content(file);
 	map = ft_split(map_content, '\n');
+	free(map_content);
 	return(map);
 }
