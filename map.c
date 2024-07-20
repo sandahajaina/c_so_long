@@ -40,15 +40,15 @@ char	*get_map_content(char *file)
 	return (content);
 }
 
-int		count_map_line(char *content)
+int	count_map_line(char *content)
 {
 	int	i;
 	int	line;
 
 	i = -1;
 	line = 0;
-	while(content[++i])
-		if(content[i] == '\n')
+	while (content[++i])
+		if (content[i] == '\n')
 			line++;
 	line++;
 	return (line);
@@ -57,9 +57,10 @@ int		count_map_line(char *content)
 char	**read_map(char *file)
 {
 	char	**map;
+	char	*map_content;
 
-	char *map_content = get_map_content(file);
+	map_content = get_map_content(file);
 	map = ft_split(map_content, '\n');
 	free(map_content);
-	return(map);
+	return (map);
 }
