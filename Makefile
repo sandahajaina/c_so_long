@@ -1,7 +1,7 @@
 NAME = so_long
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra
-SRCS = so_long.c map.c ft_split.c utils.c ft_init.c ft_free.c
+SRCS = so_long.c map.c ft_split.c utils.c ft_init.c ft_free.c map_error.c
 OBJS = $(SRCS:.c=.o)
 LIB_MLX = -Lminilibx-linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
 

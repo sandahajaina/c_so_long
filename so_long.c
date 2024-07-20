@@ -55,10 +55,13 @@ int	handle_keypress(int keycode, t_game *game)
 int	main(int argc, char *argv[])
 {
 	t_game	game;
+	char	**map;
 
 	if (argc == 2)
 	{
-		game = init_game(argv[1]);
+		map = read_map(argv[1]);
+		//ft_printf("is_surrounded_by_walls: %d\n", is_surrounded_by_walls(map));
+		game = init_game(map);
 		render_map(game);
 		mlx_key_hook(game.win, handle_keypress, &game);
 		mlx_hook(game.win, 17, 0, close_window, &game);

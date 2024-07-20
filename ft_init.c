@@ -54,14 +54,14 @@ void	init_map(t_game *game)
 	}
 }
 
-t_game	init_game(char *file)
+t_game	init_game(char **map)
 {
 	t_game	game;
 	int		x;
 	int		y;
 
 	game.mlx = mlx_init();
-	game.map.map = read_map(file);
+	game.map.map = map;
 	x = 0;
 	while (game.map.map[0][x])
 		x++;

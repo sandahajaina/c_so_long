@@ -62,7 +62,7 @@ typedef struct s_game
 
 //ft_init.c
 void	render_map(t_game game);
-t_game	init_game(char *file);
+t_game	init_game(char **map);
 void	init_map(t_game *game);
 void	load_xpm(void *mlx, t_xpm *xpm);
 
@@ -80,6 +80,11 @@ int	    handle_keypress(int keycode, t_game *game);
 int		count_map_line(char *map);
 char    **read_map(char *map);
 char	*get_map_content(char *file);
+
+//map_error.c
+int	is_rectangular(char **map);
+int	check_map_character(char **map);
+int	is_surrounded_by_walls(char **map);
 
 //ft_split
 char	**ft_split(char const *s, char c);
