@@ -23,10 +23,10 @@ void	move_player(t_game *game, int new_x, int new_y)
 			game->map.map[game->map.exit.y][game->map.exit.x] = 'E';
 		}
 		game->nb_move++;
-		printf("Number of move: %d\n", game->nb_move);
+		ft_printf("Number of move: %d\n", game->nb_move);
 		if (game->map.map[new_y][new_x] == 'E' && game->map.collectible == 0)
 		{
-			printf("You win!\n");
+			ft_printf("You win!\n");
 			close_window(game);
 		}
 		game->map.map[game->map.start.y][game->map.start.x] = '0';
