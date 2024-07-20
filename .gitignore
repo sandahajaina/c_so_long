@@ -4,7 +4,7 @@
 *.so
 
 # Ignorer l'exécutable principal
-my_project
+so_long
 
 # Ignorer les fichiers log
 *.log
@@ -26,5 +26,3 @@ my_project
 
 # Ignorer les fichiers spécifiques à macOS
 .DS_Store
-
-*.ber

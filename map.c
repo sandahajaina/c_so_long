@@ -40,20 +40,6 @@ char	*get_map_content(char *file)
 	return (content);
 }
 
-int	count_map_line(char *content)
-{
-	int	i;
-	int	line;
-
-	i = -1;
-	line = 0;
-	while (content[++i])
-		if (content[i] == '\n')
-			line++;
-	line++;
-	return (line);
-}
-
 char	**read_map(char *file)
 {
 	char	**map;

@@ -18,16 +18,16 @@ void	move_player(t_game *game, int new_x, int new_y)
 	{
 		if (game->map.map[new_y][new_x] == 'C')
 			game->map.collectible--;
+		if (game->map.collectible == 0)
+		{
+			game->map.map[game->map.exit.y][game->map.exit.x] = 'E';
+		}
 		game->nb_move++;
 		printf("Number of move: %d\n", game->nb_move);
 		if (game->map.map[new_y][new_x] == 'E' && game->map.collectible == 0)
 		{
 			printf("You win!\n");
 			close_window(game);
-		}
-		if (game->map.collectible == 0)
-		{
-			game->map.map[game->map.exit.x][game->map.exit.y] = 'E';
 		}
 		game->map.map[game->map.start.y][game->map.start.x] = '0';
 		game->map.map[new_y][new_x] = 'P';
