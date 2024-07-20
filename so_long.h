@@ -56,8 +56,8 @@ typedef struct s_game
 #include <stdlib.h>
 #include <math.h>
 #include <fcntl.h>
-#include "mlx_linux/mlx.h"
-#include "mlx_linux/mlx_int.h"
+#include "minilibx-linux/mlx.h"
+#include "minilibx-linux/mlx_int.h"
 #include "ft_printf/ft_printf.h"
 
 //ft_init.c
