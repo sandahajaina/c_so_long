@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sranaivo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sranaivo <sranaivo@student.42antanana      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/13 13:42:44 by sranaivo          #+#    #+#             */
-/*   Updated: 2024/06/13 13:43:03 by sranaivo         ###   ########.fr       */
+/*   Created: 2024/07/21 13:58:00 by sranaivo          #+#    #+#             */
+/*   Updated: 2024/07/21 13:58:02 by sranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,13 @@ int	main(int argc, char *argv[])
 	if (argc == 2)
 	{
 		map = read_map(argv[1]);
-		//ft_printf("is_surrounded_by_walls: %d\n", is_surrounded_by_walls(map));
-		game = init_game(map);
+		if (!map)
+		{
+			ft_printf("Error\n");
+			exit(0);
+		}
+		is_valid_map(map);
+		game = init_game(read_map(argv[1]));
 		render_map(game);
 		mlx_key_hook(game.win, handle_keypress, &game);
 		mlx_hook(game.win, 17, 0, close_window, &game);

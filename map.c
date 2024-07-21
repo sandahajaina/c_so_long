@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sranaivo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sranaivo <sranaivo@student.42antanana      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/28 15:27:48 by sranaivo          #+#    #+#             */
-/*   Updated: 2024/06/28 15:27:50 by sranaivo         ###   ########.fr       */
+/*   Created: 2024/07/21 13:57:50 by sranaivo          #+#    #+#             */
+/*   Updated: 2024/07/21 13:57:52 by sranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	*get_map_content(char *file)
+char	*get_map_content(int fd)
 {
 	char	*buf;
-	int		fd;
 	char	*content;
 	char	*temp;
 	int		r;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	fd = open(file, O_RDONLY);
 	content = NULL;
 	temp = NULL;
 	r = 1;
@@ -44,8 +42,18 @@ char	**read_map(char *file)
 {
 	char	**map;
 	char	*map_content;
+	int		fd;
 
-	map_content = get_map_content(file);
+	if (!check_extension(file))
+	{
+		return (NULL);
+	}
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		return (NULL);
+	}
+	map_content = get_map_content(fd);
 	map = ft_split(map_content, '\n');
 	free(map_content);
 	return (map);

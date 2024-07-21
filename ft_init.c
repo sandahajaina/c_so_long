@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sranaivo <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sranaivo <sranaivo@student.42antanana      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/20 13:22:16 by sranaivo          #+#    #+#             */
-/*   Updated: 2024/07/20 13:22:18 by sranaivo         ###   ########.fr       */
+/*   Created: 2024/07/21 13:57:09 by sranaivo          #+#    #+#             */
+/*   Updated: 2024/07/21 13:57:13 by sranaivo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	init_map(t_game *game)
 
 	y = -1;
 	game->map.collectible = 0;
-	while (++y < game->height)
+	while (++y < game->size.y)
 	{
 		x = -1;
-		while (++x < game->width)
+		while (++x < game->size.x)
 		{
 			if (game->map.map[y][x] == 'C')
 				game->map.collectible++;
@@ -68,9 +68,9 @@ t_game	init_game(char **map)
 	y = 0;
 	while (game.map.map[y])
 		y++;
-	game.width = x;
-	game.height = y;
-	game.win = mlx_new_window(game.mlx, (game.width * 32), (game.height * 32),
+	game.size.x = x;
+	game.size.y = y;
+	game.win = mlx_new_window(game.mlx, (game.size.x * 32), (game.size.y * 32),
 			"so_long");
 	load_xpm(game.mlx, &game.xpm);
 	init_map(&game);
@@ -104,10 +104,10 @@ void	render_map(t_game game)
 
 	x = 0;
 	y = 0;
-	while (y < game.height)
+	while (y < game.size.y)
 	{
 		x = 0;
-		while (x < game.width)
+		while (x < game.size.x)
 		{
 			draw_map(&game, &x, &y);
 			x++;
