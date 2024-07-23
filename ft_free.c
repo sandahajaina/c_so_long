@@ -44,7 +44,6 @@ void	free_game(t_game *game)
 int	close_window(t_game *game)
 {
 	free_game(game);
-	(void)game;
 	exit(0);
 	return (0);
 }

@@ -18,6 +18,7 @@ void	move_player(t_game *game, int new_x, int new_y)
 	{
 		if (game->map.map[new_y][new_x] == 'C')
 			game->map.collectible--;
+		game->map.map[game->map.start.y][game->map.start.x] = '0';
 		if (game->map.collectible == 0)
 		{
 			game->map.map[game->map.exit.y][game->map.exit.x] = 'E';
@@ -29,7 +30,6 @@ void	move_player(t_game *game, int new_x, int new_y)
 			ft_printf("You win!\n");
 			close_window(game);
 		}
-		game->map.map[game->map.start.y][game->map.start.x] = '0';
 		game->map.map[new_y][new_x] = 'P';
 		game->map.start.x = new_x;
 		game->map.start.y = new_y;

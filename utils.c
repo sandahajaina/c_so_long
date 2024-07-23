@@ -71,8 +71,8 @@ int	check_extension(const char *filename)
 	size_t		len_extension;
 
 	len_filename = strlen(filename);
-	len_extension = strlen(extension);
-	if (len_filename >= len_extension)
+	len_extension = 4;
+	if (len_filename > 4 && filename[len_filename - 5] != '/')
 	{
 		if (ft_strncmp(filename + len_filename - len_extension, extension,
 				len_extension) == 0)
